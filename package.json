@@ -1,5 +1,5 @@
 {
-  "name": "starting_code",
+  "name": "univ-boilerplate",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,25 +9,29 @@
     "client:build": "react-scripts build",
     "server:dev": "nodemon index.js",
     "db:build": "node ./db/init_db",
-    "start": "node index.js"
+    "start": "node index.js",
+    "start:dev": "nodemon index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.19.2",
+    "@material-ui/core": "^4.11.3",
+    "@material-ui/icons": "^4.11.2",
+    "axios": "^0.21.1",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "morgan": "^1.10.0",
     "pg": "^8.2.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "^3.4.1"
+    "react-scripts": "^4.0.3"
   },
   "devDependencies": {
     "nodemon": "^2.0.4"
   },
-  "proxy": "http://localhost:5000",
+  "proxy": "http://localhost:3000",
   "browserslist": {
     "production": [
       ">0.2%",
