@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Button, TextField } from '@material-ui/core';
 import { createLink, getLinks } from '../api';
 import '../style.css';
+import swal from 'sweetalert';
 
 const LinkForm = ({openLinkForm, setOpenLinkForm, setLinks}) => {
 
@@ -15,10 +16,8 @@ if(openLinkForm === true) {
         <form className='form' onSubmit={async(e) => {
             e.preventDefault();
             const date = new Date();
-            await createLink({linkUrl, linkComment, date, linkTags})
-            const newLinks = await getLinks();
-            setLinks(newLinks);
-            alert('Your link was added.')
+            await createLink(linkUrl, linkComment, date, linkTags)
+            swal("Success", "Your link was added!", "success" )
             setLinkUrl('');
             setLinkComment('');
             setLinkTags('');

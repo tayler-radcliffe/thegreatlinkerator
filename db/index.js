@@ -42,8 +42,7 @@ async function getAllLinks() {
   try {
     const { rows: links } = await client.query(`
       SELECT *
-      FROM links
-      RETURNING *;
+      FROM links;
     `);
 
     const link = await Promise.all(links.map(link => getLinkById(link.id)));
@@ -213,6 +212,18 @@ async function updateCount(linkId) {
   } catch (error) {
     throw error;
   }
+}
+
+async function deleteLink(id) {
+  try {
+    const { rows: [link] } = await client.query(`
+      DELETE FROM links
+      WHERE id = $1;
+    `, [id])
+
+  } catch (error) {
+    throw error;
+  }
 
 }
 
@@ -229,7 +240,8 @@ module.exports = {
   addTagsToLink,
   updateLink,
   updateTags,
-  updateCount
+  updateCount,
+  deleteLink
 
   // db methods
 }

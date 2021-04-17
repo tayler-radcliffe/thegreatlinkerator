@@ -1,5 +1,5 @@
 {
-  "name": "univ-boilerplate",
+  "name": "the-great-linkerator",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -11,7 +11,8 @@
     "db:build": "node ./db/init_db",
     "start": "node index.js",
     "start:dev": "nodemon index.js",
-    "seed": "node ./db/seed.js"
+    "seed": "node ./db/seed.js",
+    "seed:dev": "nodemon ./db/seed.js"
   },
   "keywords": [],
   "author": "",
@@ -27,7 +28,8 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "^4.0.3"
+    "react-scripts": "^4.0.3",
+    "sweetalert": "^2.1.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.4"

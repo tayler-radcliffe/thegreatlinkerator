@@ -2,15 +2,7 @@ import axios from 'axios';
 
 export async function getLinks() {
   try {
-    const response = await axios.get(`/api/links`, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    const data = await response.json();
-
-    return data;
+    return await axios.get(`/api/links`);
   } catch (error) {
     throw error;
   }
@@ -19,21 +11,12 @@ export async function getLinks() {
 
 export async function createLink( url, comment, date, tags ) {
   try {
-    const response = await axios.post(`/api/links`, {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        url: url,
-        comment: comment,
-        date: date,
-        tags: [tags]
-      }),
+    return await axios.post(`/api/links`, {
+        url,
+        comment,
+        date,
+        tags
     });
-    const data = await response.json();
-
-    return data;
 
   } catch (error) {
     throw error;
@@ -43,15 +26,7 @@ export async function createLink( url, comment, date, tags ) {
 export async function getLinksByTagName(tagName) {
 
   try {
-    const response = await axios.get(`/api/tags/${tagName}/links`, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    const data = await response.json();
-
-    return data;
+     return await axios.get(`/api/tags/${tagName}/links`)
 
   } catch (error) {
     throw error;
@@ -61,17 +36,18 @@ export async function getLinksByTagName(tagName) {
 export async function updateCount(linkId) {
 
   try {
-    const response = await axios.patch(`/api/links/${linkId}/count`, {
-      method: "PATCH",
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    return await axios.patch(`/api/${linkId}/count`)
 
-    const data = await response.json();
-
-    return data;
   } catch (error) {
     throw error;
   }
 }
+
+// export async function deleteLink(linkId) {
+//   try {
+//     return await axios.delete(`/api/${linkId}`)
+
+//   } catch (error) {
+//     throw error;
+//   }
+// }

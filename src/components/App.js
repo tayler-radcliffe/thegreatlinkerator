@@ -16,10 +16,10 @@ const App = () => {
   const [openLinkForm, setOpenLinkForm] = useState(false);
   const [searchLinks, setSearchLinks] = useState([]);
   const [sortLinks, setSortLinks] = useState([]);
- 
+
   useEffect(() => {
     try {
-      Promise.all([getLinks()]).then(([data]) => {
+      Promise.all([getLinks()]).then(([{ data }]) => {
         setLinks(data);
         setSearchLinks(data)
       });
@@ -37,33 +37,33 @@ const App = () => {
   }
 
   const onSearchLinks = (searchTerm) => {
-      setSearchLinks(links.filter((link) => {
-        const linkName = link.url.toLowerCase();
-        const linkTags = link.tags.map((tag) => tag.name.toLowerCase())
+    setSearchLinks(links.filter((link) => {
+      const linkName = link.url.toLowerCase();
+      const linkTags = link.tags.map((tag) => tag.name.toLowerCase())
 
-         return linkName.includes(searchTerm.toLowerCase()) && 
-          linkTags.includes(searchTerm.toLowerCase())
-      }))
+      return linkName.includes(searchTerm.toLowerCase()) ||
+        linkTags.includes(searchTerm.toLowerCase())
+    }))
   }
 
   const handleClick = () => {
+    setSortLinks(!sortLinks);
     const sortedLinks = links.sort((a, b) => {
-      if(sortLinks) {
-        return a.count - b.count
-      } else {
+      if (sortLinks) {
         return b.count - a.count
+      } else {
+        return a.count - b.count
       }
     })
-    setSortLinks(sortedLinks);
-    setLinks(sortLinks);
+    setLinks(sortedLinks);
   }
 
 
   return (
     <div className="App">
 
-      <Header onSearchLinks={onSearchLinks} setSearchTerm={setSearchTerm} searchTerm={searchTerm}/>
-
+      <Header onSearchLinks={onSearchLinks} setSearchTerm={setSearchTerm} searchTerm={searchTerm} />
+      <br></br>
       <Button
         className='button'
         color='secondary'
@@ -71,21 +71,25 @@ const App = () => {
         onClick={showLinkForm}
       >{openLinkForm ? 'Hide' : 'Add a Link'}</Button>
 
-      <LinkForm openLinkForm={openLinkForm} 
-        setOpenLinkForm={setOpenLinkForm} 
+      <LinkForm openLinkForm={openLinkForm}
+        setOpenLinkForm={setOpenLinkForm}
         setLinks={setLinks} />
+        <br></br>
 
-      <Button 
+
+      <Button
         className='button'
         color='secondary'
         variant='contained'
         onClick={handleClick}
-       >Sort by Most Popular</Button>
-      
-      {searchLinks ? searchLinks.map((link, idx) => 
+      >{sortLinks ? 'Sort by most popular' : 'Sort by least popular'}</Button>
 
-        <Link link={link} links={links} key={idx} setLinks={setLinks}
-        searchTerm={searchTerm} setSearchTerm={setSearchTerm}/>) : <div>Use the button to save a new link</div>}
+      <br></br>
+
+      {searchLinks ? searchLinks.map((link, idx) =>
+
+        <Link link={link} links={links} key={idx} setLinks={setLinks} setSearchLinks={setSearchLinks}
+          searchTerm={searchTerm} setSearchTerm={setSearchTerm} onSearchLinks={onSearchLinks}/>) : <div>Use the button to save a new link</div>}
 
 
     </div>

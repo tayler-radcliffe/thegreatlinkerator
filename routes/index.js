@@ -1,4 +1,4 @@
-const { getAllLinks, createLink, updateLink, getLinksByTagName, updateCount } = require('../db');
+const { getAllLinks, createLink, updateLink, getLinksByTagName, updateCount, getLinkById, deleteLink } = require('../db');
 
 const apiRouter = require('express').Router();
 
@@ -11,6 +11,7 @@ apiRouter.get('/links', async (req, res, next) => {
       links
     );
   } catch ({ name, message }) {
+    console.log(name, message)
     next({ name: 'GettingLinksError'
       , message: 'Error getting the links.' });
   }
@@ -20,25 +21,31 @@ apiRouter.get('/links', async (req, res, next) => {
 
 apiRouter.post('/links', async (req, res, next) => {
   const { url, comment, date, tags = [] } = req.body;
+  const linkData = {
+    url,
+    comment,
+    date,
+    tags,
+  };
 
   const tagArr = tags.trim().split(/\s+/)
-  const linkData = {};
 
   if (tagArr.length) {
     linkData.tags = tagArr;
   }
 
   try {
-    const { url, count, comment, tags } = linkData;
     const createdLink = await createLink(linkData);
+
 
     if(createdLink) { 
       res.send({ createdLink });
     }
 
   } catch ({ name, message }) {
-    next({ name: 'CreateLinkError', 
-    message: 'There was an error creating this link.'});
+    console.log(name, message)
+    // next({ name: 'CreateLinkError', 
+    // message: 'There was an error creating this link.'});
   }
 });
 
@@ -93,6 +100,7 @@ apiRouter.get('/tags/:tagName/links', async (req, res, next) => {
   }
 });
 
+
 apiRouter.patch("/:linkId/count", async (req, res, next) => {
   const { linkId } = req.params;
 
@@ -107,6 +115,16 @@ apiRouter.patch("/:linkId/count", async (req, res, next) => {
 
 });
 
+
+apiRouter.delete('/:linkId', async (req, res, next) => {
+  const { linkId } = req.params;
+  
+  try {
+      await deleteLink(linkId)
+  } catch (error){
+      next(error);
+  }
+});
 
 
 
