@@ -13,9 +13,6 @@ const LinkForm = ({ openLinkForm, setOpenLinkForm, setLinks, links }) => {
     function refreshPage() {
         window.location.reload(false);
     }
-
-    console.log(links.url)
-
     
 
     if (openLinkForm === true) {
@@ -29,8 +26,6 @@ const LinkForm = ({ openLinkForm, setOpenLinkForm, setLinks, links }) => {
                 setLinkComment('');
                 setLinkTags('');
                 setOpenLinkForm(false);
-                const newLinks = await getLinks();
-                setLinks(newLinks);
                 refreshPage();
 
             }}>

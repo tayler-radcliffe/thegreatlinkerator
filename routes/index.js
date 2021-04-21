@@ -43,9 +43,8 @@ apiRouter.post('/links', async (req, res, next) => {
     }
 
   } catch ({ name, message }) {
-    console.log(name, message)
-    // next({ name: 'CreateLinkError', 
-    // message: 'There was an error creating this link.'});
+    next({ name: 'CreateLinkError', 
+    message: 'There was an error creating this link.'});
   }
 });
 
@@ -127,7 +126,7 @@ apiRouter.delete('/:linkId', async (req, res, next) => {
       })
 
   } catch (error){
-      next(error);
+      throw(error);
   }
 });
 

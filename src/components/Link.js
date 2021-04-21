@@ -13,17 +13,15 @@ const Link = ({searchTerm, link, onSearchLinks, setSearchTerm}) => {
       }
 
     const handleClick = async () => {
+    try {
         await updateCount(link.id);
         refreshPage();
+    } catch (error) {
+        throw(error)
+    }  
     }
 
     const linkId = link.id;
-
-    const handleDelete = async () => {
-        await deleteLink(linkId);
-        swal('Success', 'Your link has been deleted!', 'success')
-       }
-
 
     return (
         <div className='links'>
