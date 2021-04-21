@@ -10,10 +10,13 @@ const LinkForm = ({openLinkForm, setOpenLinkForm, setLinks}) => {
     const [linkComment, setLinkComment] = useState('');
     const [linkTags, setLinkTags] = useState('');
 
+    function refreshPage() {
+        window.location.reload(false);
+      }
 
 if(openLinkForm === true) {
     return (
-        <form className='form' onSubmit={async(e) => {
+        <form className='form' style={{display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column'}} onSubmit={async(e) => {
             e.preventDefault();
             const date = new Date();
             await createLink(linkUrl, linkComment, date, linkTags)
@@ -22,31 +25,38 @@ if(openLinkForm === true) {
             setLinkComment('');
             setLinkTags('');
             setOpenLinkForm(false);
+            const newLinks = await getLinks();
+            setLinks(newLinks);
+            refreshPage();
 
         }}>
             <TextField 
+            style={{margin: '10px'}}
                 id="outlined-basic" 
                 label="Link URL" 
                 variant="outlined" 
+                helperText='Please include http:// in your link'
                 onChange={(e) => setLinkUrl(e.target.value)}
                 />
             <TextField 
+             style={{margin: '10px'}}
                 id="outlined-basic" 
                 label="Comment" 
                 variant="outlined" 
                 onChange={(e) => setLinkComment(e.target.value)}
                 />
             <TextField 
+             style={{margin: '10px'}}
                 id="outlined-helperText"
                 label="Tags" 
                 variant="outlined" 
-                helperText='Use a comma to seperate tags'
+                helperText='Use a space to seperate tags'
                 onChange={(e) => setLinkTags(e.target.value)}
                 />
             <Button
                 className='button'
                 variant='contained'
-                color='secondary'
+                color='primary'
                 type='submit'
                 >Add Link</Button>
 

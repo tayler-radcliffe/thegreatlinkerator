@@ -1,11 +1,11 @@
+* {
+    font-family: 'JetBrains Mono', monospace;
+}
+
 .button {
     margin: 10px;
 }
 
 .form {
     padding: 10px;
-}
-
-.links {
-    margin-left: 15px;
 }
