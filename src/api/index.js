@@ -43,11 +43,11 @@ export async function updateCount(linkId) {
   }
 }
 
-// export async function deleteLink(linkId) {
-//   try {
-//     return await axios.delete(`/api/${linkId}`)
+export async function deleteLink(linkId) {
+  try {
+    return await axios.delete(`/api/${linkId}`)
 
-//   } catch (error) {
-//     throw error;
-//   }
-// }
+  } catch (error) {
+    throw error;
+  }
+}

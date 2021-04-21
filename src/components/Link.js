@@ -1,10 +1,12 @@
-import React from 'react';
-import { updateCount } from '../api';
+import React, { useState, useEffect } from 'react';
+import { updateCount, deleteLink, getLinks } from '../api';
 import '../style.css';
-import { Divider } from '@material-ui/core';
+import { Divider, Button } from '@material-ui/core';
+import swal from 'sweetalert';
+
+
 
 const Link = ({searchTerm, link, onSearchLinks, setSearchTerm}) => {
-
 
     function refreshPage() {
         window.location.reload(false);
@@ -14,6 +16,13 @@ const Link = ({searchTerm, link, onSearchLinks, setSearchTerm}) => {
         await updateCount(link.id);
         refreshPage();
     }
+
+    const linkId = link.id;
+
+    const handleDelete = async () => {
+        await deleteLink(linkId);
+        swal('Success', 'Your link has been deleted!', 'success')
+       }
 
 
     return (
@@ -26,6 +35,7 @@ const Link = ({searchTerm, link, onSearchLinks, setSearchTerm}) => {
             <h3>Tags: {link.tags.map((tag) => <p>{tag.name}</p>)}
             </h3>
             </div>
+
             <br></br>
             <br></br>
             <Divider />

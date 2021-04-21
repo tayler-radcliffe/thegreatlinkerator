@@ -158,7 +158,7 @@ const App = () => {
 
           <LinkForm openLinkForm={openLinkForm}
             setOpenLinkForm={setOpenLinkForm}
-            setLinks={setLinks} />
+            setLinks={setLinks} links={links} />
           <br></br>
 
 
@@ -185,7 +185,6 @@ const App = () => {
           borderRadius: '10px'
         }}>
           {searchLinks ? searchLinks.map((link, idx) =>
-
             <Link link={link} links={links} key={idx} setLinks={setLinks} setSearchLinks={setSearchLinks}
               searchTerm={searchTerm} setSearchTerm={setSearchTerm} onSearchLinks={onSearchLinks} />) : <div>Use the button to save a new link</div>}
 

@@ -120,7 +120,12 @@ apiRouter.delete('/:linkId', async (req, res, next) => {
   const { linkId } = req.params;
   
   try {
-      await deleteLink(linkId)
+     await deleteLink(linkId);
+
+      res.send ({
+        message: 'Link has been clicked'
+      })
+
   } catch (error){
       next(error);
   }
