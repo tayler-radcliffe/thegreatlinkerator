@@ -21,15 +21,10 @@ const App = () => {
   const [sortLinks, setSortLinks] = useState([]);
 
   useEffect(() => {
-    try {
       Promise.all([getLinks()]).then(([{ data }]) => {
         setLinks(data);
         setSearchLinks(data)
-      });
-    } catch (error) {
-      throw (error);
-    }
-  }, []);
+      })}, []);
 
   console.log(links);
 
