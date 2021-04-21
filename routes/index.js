@@ -10,10 +10,8 @@ apiRouter.get('/links', async (req, res, next) => {
     res.send(
       links
     );
-  } catch ({ name, message }) {
-    console.log(name, message)
-    next({ name: 'GettingLinksError'
-      , message: 'Error getting the links.' });
+  } catch (error) {
+    throw (error);
   }
 });
 
@@ -126,7 +124,7 @@ apiRouter.delete('/:linkId', async (req, res, next) => {
       })
 
   } catch (error){
-      throw(error);
+    throw(error);
   }
 });
 

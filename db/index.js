@@ -13,7 +13,7 @@ async function createLink({
 }) {
 
   if(!date) {
-    date = new Date();
+    date = null;
   }
 
   if (!tags) {
@@ -214,19 +214,6 @@ async function updateCount(linkId) {
   }
 }
 
-async function deleteLink(id) {
-  try {
-    const { rows: [link] } = await client.query(`
-      DELETE FROM links
-      WHERE id = $1;
-    `, [id])
-
-  } catch (error) {
-    throw error;
-  }
-
-}
-
 
 // export
 module.exports = {
@@ -240,8 +227,8 @@ module.exports = {
   addTagsToLink,
   updateLink,
   updateTags,
-  updateCount,
-  deleteLink
+  updateCount
+
 
   // db methods
 }

@@ -21,12 +21,15 @@ const App = () => {
   const [sortLinks, setSortLinks] = useState([]);
 
   useEffect(() => {
+    try {
       Promise.all([getLinks()]).then(([{ data }]) => {
         setLinks(data);
         setSearchLinks(data)
-      })}, []);
-
-  console.log(links);
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  }, []);
 
   const showLinkForm = () => {
     if (openLinkForm === false) {
